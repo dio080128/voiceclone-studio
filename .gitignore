@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# 发行目录里的运行时与模型（体积大，走在线下载）
+resources/
+
+# 打包产物
+dist/
+build/
+*.spec
+release/
+*.zip
+*.7z
+*.rar
+*.exe
+
+# 本地缓存与日志
+cache/
+logs/
+output/
+voices/
+*.log
+
+# 内部工作记录，不对外
+.workbuddy/
+
+# 系统
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 编辑器
+.idea/
+.vscode/
+*.swp

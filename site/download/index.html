@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>下载 · 声纹工坊</title>
+<meta name="description" content="下载声纹工坊 v1.0.0。安装包约 214 MB，首次运行自动下载运行环境与语音模型。">
+<meta property="og:title" content="下载 · 声纹工坊">
+<meta property="og:description" content="安装包 214 MB，首次运行自动下载运行环境。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mctuesday.top/download">
+<link rel="icon" href="/assets/favicon.svg">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+<div class="glow"><i></i><i></i></div>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="/home" class="brand">
+      <svg viewBox="0 0 64 64" fill="none">
+        <rect width="64" height="64" rx="14" fill="#0f131b" stroke="#1d2330"/>
+        <path d="M14 32h4l3-10 4 20 4-26 4 32 4-22 3 14 3-8h7" stroke="#7c9cff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>声纹工坊<small>VOICECLONE STUDIO</small></span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="菜单">☰</button>
+    <nav class="nav" id="nav">
+      <a href="/home">首页</a>
+      <a href="/about">关于</a>
+      <a href="/download" class="active">下载</a>
+      <a href="/donate" class="nav-cta">赞助</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero center wrap">
+    <div class="eyebrow">当前版本 v1.0.0</div>
+    <h1>下载<br><em>声纹工坊</em></h1>
+    <p class="lede">
+      安装包只有 214 MB，运行环境和语音模型在第一次打开时自动下载，
+      不用再拖一个 3.5 GB 的压缩包。
+    </p>
+    <div class="actions">
+      <a href="https://github.com/dio080128/voiceclone-studio/releases/latest" class="btn btn-primary" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+        从 GitHub 下载
+      </a>
+      <a href="https://github.com/dio080128/voiceclone-studio" class="btn btn-ghost" target="_blank" rel="noopener">查看源码</a>
+    </div>
+    <p class="muted" style="margin-top:18px">Windows 10 / 11 · 64 位 · 免费 · 无需注册</p>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head">
+      <h2>安装步骤</h2>
+      <p>下载后一路下一步，第一次打开会多等一会儿。</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h4>运行安装包</h4>
+        <p>双击 <code class="inline">声纹工坊-v1.0.0-安装包.exe</code>，选择安装位置。默认装在当前用户目录，不需要管理员权限。</p>
+      </div>
+      <div class="step">
+        <h4>首次启动等下载</h4>
+        <p>第一次打开会提示需要下载运行环境（约 3.5 GB）。点「是」，等它自己下完解压，中途可以离开。</p>
+      </div>
+      <div class="step">
+        <h4>开始使用</h4>
+        <p>下载完成后自动进入主界面。以后再打开就直接启动，不用联网。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head">
+      <h2>下载内容说明</h2>
+      <p>为什么要分两次下？</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>内容</th><th>大小</th><th>时机</th></tr></thead>
+        <tbody>
+          <tr><td>安装包（程序本体）</td><td>约 214 MB</td><td>手动下载</td></tr>
+          <tr><td>Python 运行时 + 依赖</td><td>约 2.3 GB</td><td>首次运行自动下载</td></tr>
+          <tr><td>F5-TTS 语音模型</td><td>约 1.4 GB</td><td>首次运行自动下载</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note" style="margin-top:16px">
+      <strong>网络不好怎么办：</strong>安装包和资源都放在国内可访问的地址。如果自动下载失败，
+      可以在程序的 <code class="inline">launcher\endpoints.json</code> 里改成自己的镜像地址，
+      或者手动下载后解压到 <code class="inline">resources\runtime</code> 与 <code class="inline">resources\models</code>。
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head">
+      <h2>系统要求</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>项目</th><th>最低</th><th>推荐</th></tr></thead>
+        <tbody>
+          <tr><td>系统</td><td>Windows 10 64 位</td><td>Windows 11</td></tr>
+          <tr><td>内存</td><td>8 GB</td><td>16 GB 及以上</td></tr>
+          <tr><td>显卡</td><td>NVIDIA 4 GB 显存</td><td>NVIDIA 8 GB 显存</td></tr>
+          <tr><td>硬盘</td><td>10 GB 可用</td><td>20 GB（建议 SSD）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head">
+      <h2>常见问题</h2>
+    </div>
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>首次下载卡住不动</h3>
+        <p>国内访问 GitHub 偶尔会慢。已经做了断点续传，关掉再开会接着下；如果一直失败，可以按上面说的手动放文件。</p>
+      </div>
+      <div class="card">
+        <h3>提示缺少 VCRUNTIME140.dll</h3>
+        <p>系统缺少 VC++ 运行库。装一下 <code class="inline">vc_redist.x64.exe</code> 再启动即可。</p>
+      </div>
+      <div class="card">
+        <h3>杀毒软件报毒</h3>
+        <p>PyInstaller 打包的程序常被误报。这是误报，可加白名单；源码全部开源，可以自己审。</p>
+      </div>
+      <div class="card">
+        <h3>没有 N 卡能用吗</h3>
+        <p>能，会回退到 CPU 推理。速度慢很多，一条十秒音频大概两三分钟。</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 我是周二 · 声纹工坊</span>
+    <span>本软件基于 F5-TTS 构建，遵循 MIT 协议</span>
+  </div>
+</footer>
+
+<script>
+  const t = document.getElementById('navToggle');
+  const n = document.getElementById('nav');
+  if (t) t.addEventListener('click', () => n.classList.toggle('open'));
+</script>
+</body>
+</html>

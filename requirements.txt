@@ -1,0 +1,15 @@
+# 声纹工坊 运行依赖（核心界面与音频处理）
+PySide6>=6.6
+numpy>=1.24
+soundfile>=0.12
+scipy>=1.10
+pyttsx3>=2.90
+imageio-ffmpeg>=0.4.9
+
+# --- 可选组件（按需手动安装，或使用软件内「设置 → 安装依赖」）---
+# 音色克隆引擎（首次安装约 2GB，含 PyTorch CPU 版）
+#   pip install f5-tts
+# 参考文本自动识别
+#   pip install faster-whisper
+# 繁简转换
+#   pip install opencc-python-reimplemented

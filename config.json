@@ -1,0 +1,18 @@
+{
+  "output_dir": "C:\\Users\\zm\\WorkBuddy\\Work1\\VoiceCloneStudio\\output",
+  "engine": "gptsovits",
+  "device": "cpu",
+  "nfe_step": 10,
+  "cfg_strength": 2.0,
+  "speed": 1.0,
+  "gap_ms": 180,
+  "max_chunk_chars": 110,
+  "target_rms": 0.12,
+  "asr_model": "base",
+  "cpu_threads": 0,
+  "export_mp3": false,
+  "open_after_synth": true,
+  "last_voice": "20261109201632_9b3ddf",
+  "hf_endpoint": "https://hf-mirror.com",
+  "last_page": 2
+}
