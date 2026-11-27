@@ -5,10 +5,19 @@ title 声纹工坊 - 部署到 Cloudflare
 
 where node >nul 2>nul
 if errorlevel 1 (
-    echo [错误] 没找到 Node.js，请先装 LTS 版：https://nodejs.org
+    if exist "E:\nodejs\node.exe" (
+        set "PATH=E:\nodejs;%PATH%"
+    )
+)
+where node >nul 2>nul
+if errorlevel 1 (
+    echo [错误] 没找到 Node.js。
+    echo 请先安装 Node.js LTS：https://nodejs.org
     pause
     exit /b 1
 )
+
+for /f "delims=" %%v in ('node -v') do echo [信息] Node %%v
 
 echo ============================================
 echo   声纹工坊 - 一键部署到 Cloudflare
@@ -24,7 +33,6 @@ if errorlevel 1 (
     echo 部署没成功，可能还没登录 Cloudflare。
     echo 接下来会打开浏览器，点 Allow 授权，之后自动重新部署。
     echo.
-    pause
     call npx --yes wrangler@latest login
     if errorlevel 1 (
         echo [错误] 登录失败，检查网络后重试。
