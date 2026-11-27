@@ -77,7 +77,9 @@ async function handleDownload(request, url, stripDlPrefix, ctx) {
   }
 
   const cache = caches.default;
-  const cacheKey = new Request(url.origin + "/" + encodeURI(name), { method: "GET" });
+  // 缓存键带版本前缀：_v1 里混进过 HEAD 的空响应，换前缀避免命中脏数据
+  const cacheKey = new Request(url.origin + "/_v2/" + encodeURI(name), { method: "GET" });
+  const isGET = request.method === "GET";
 
   const cached = await cache.match(cacheKey);
   if (cached) {
@@ -121,7 +123,8 @@ async function handleDownload(request, url, stripDlPrefix, ctx) {
     `attachment; filename*=UTF-8''${encodeURIComponent(pretty)}`,
   );
 
-  const isFull = !range && upstream.status === 200;
+  // 只有 GET 的完整响应才允许写缓存：HEAD 没有 body，缓存进去会污染真实下载
+  const isFull = isGET && !range && upstream.status === 200;
   if (isFull) headers.set("cache-control", "public, max-age=604800, immutable");
 
   const resp = new Response(upstream.body, { status: upstream.status, headers });
