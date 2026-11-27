@@ -1,0 +1,12 @@
+name = "restless-math-a985"
+main = "worker.js"
+compatibility_date = "2026-11-26"
+
+# 静态资源目录：网站页面由这里提供（指向项目根的 site，避免两处副本不同步）
+[assets]
+directory = "../site"
+binding = "ASSETS"
+
+# 不把 site 目录当作用户上传内容处理，直接打包发布
+[observability]
+enabled = false

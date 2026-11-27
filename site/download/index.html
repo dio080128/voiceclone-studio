@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>下载 · 声纹工坊</title>
-<meta name="description" content="下载声纹工坊 v1.0.0。安装包约 214 MB，首次运行自动下载运行环境与语音模型。">
-<meta property="og:title" content="下载 · 声纹工坊">
-<meta property="og:description" content="安装包 214 MB，首次运行自动下载运行环境。">
+<title>下载 · 声纹工坊 v1.0.1</title>
+<meta name="description" content="直接下载声纹工坊 v1.0.1 安装包（149 MB），国内直连、支持断点续传。运行环境与语音模型首次启动自动下载。">
+<meta property="og:title" content="下载 · 声纹工坊 v1.0.1">
+<meta property="og:description" content="安装包 149 MB，国内直连下载，首次运行自动补运行环境。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://mctuesday.top/download">
 <link rel="icon" href="/assets/favicon.svg">
@@ -38,20 +38,77 @@
 <main>
 
   <section class="hero center wrap">
-    <div class="eyebrow">当前版本 v1.0.0</div>
+    <div class="eyebrow">当前版本 v1.0.1</div>
     <h1>下载<br><em>声纹工坊</em></h1>
     <p class="lede">
-      安装包只有 214 MB，运行环境和语音模型在第一次打开时自动下载，
-      不用再拖一个 3.5 GB 的压缩包。
+      点下面的按钮直接开始下载，不跳转、不需要登录。
+      安装包 149 MB，运行环境和语音模型在第一次打开时自动补齐。
     </p>
     <div class="actions">
-      <a href="https://github.com/dio080128/voiceclone-studio/releases/latest" class="btn btn-primary" target="_blank" rel="noopener">
+      <a href="https://dl.mctuesday.top/voiceclone-studio-v1.0.1-setup.exe"
+         class="btn btn-primary" download>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
-        从 GitHub 下载
+        直接下载 149 MB
       </a>
-      <a href="https://github.com/dio080128/voiceclone-studio" class="btn btn-ghost" target="_blank" rel="noopener">查看源码</a>
+      <a href="https://github.com/dio080128/voiceclone-studio/releases/latest" class="btn btn-ghost" target="_blank" rel="noopener">备用线路（GitHub）</a>
     </div>
     <p class="muted" style="margin-top:18px">Windows 10 / 11 · 64 位 · 免费 · 无需注册</p>
+    <p class="muted" style="margin-top:6px">下载后文件名是 <code class="inline">声纹工坊-v1.0.1-安装包.exe</code>，可以直接双击安装。</p>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head">
+      <h2>文件校验</h2>
+      <p>下载完可以对一下哈希，确认文件没被改动或截断。</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>文件</th><th>大小</th><th>SHA-256</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code class="inline">声纹工坊-v1.0.1-安装包.exe</code></td>
+            <td>149.5 MB</td>
+            <td><code class="inline" id="sha1">f8f30351e3e77efc26d8584298411b548dc27260f57b39486b9125290200f6f9</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note" style="margin-top:16px">
+      <strong>怎么校验：</strong>在文件所在目录按住 Shift 右键「在此处打开 PowerShell」，执行
+      <code class="inline">Get-FileHash .\声纹工坊-v1.0.1-安装包.exe -Algorithm SHA256</code>，
+      比对上面的字符串即可。
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head">
+      <h2>手动下载资源</h2>
+      <p>首次启动会自动下载。网络环境特殊、自动下载总是失败时，可以在这里手动拉，然后解压到对应目录。</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>文件</th><th>大小</th><th>放到哪里</th><th>下载</th></tr></thead>
+        <tbody>
+          <tr><td>runtime-part1.zip</td><td>461 MB</td><td rowspan="5"><code class="inline">resources\runtime</code></td>
+              <td><a href="https://dl.mctuesday.top/runtime-part1.zip" download>下载</a></td></tr>
+          <tr><td>runtime-part2.zip</td><td>35 MB</td>
+              <td><a href="https://dl.mctuesday.top/runtime-part2.zip" download>下载</a></td></tr>
+          <tr><td>runtime-part3.zip</td><td>856 MB</td>
+              <td><a href="https://dl.mctuesday.top/runtime-part3.zip" download>下载</a></td></tr>
+          <tr><td>runtime-part4.zip</td><td>552 MB</td>
+              <td><a href="https://dl.mctuesday.top/runtime-part4.zip" download>下载</a></td></tr>
+          <tr><td>runtime-part5.zip</td><td>479 MB</td>
+              <td><a href="https://dl.mctuesday.top/runtime-part5.zip" download>下载</a></td></tr>
+          <tr><td>models.zip</td><td>1.31 GB</td><td><code class="inline">resources\models</code></td>
+              <td><a href="https://dl.mctuesday.top/models.zip" download>下载</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note" style="margin-top:16px">
+      <strong>国内镜像：</strong>以上文件在魔搭（ModelScope）也有一份，
+      地址是 <code class="inline">modelscope.cn/models/dio0801/voiceclone-studio</code>，
+      和这里内容完全一致。程序默认就走国内线路，一般不需要手动下。
+    </div>
   </section>
 
   <section class="section wrap">
@@ -62,38 +119,32 @@
     <div class="steps">
       <div class="step">
         <h4>运行安装包</h4>
-        <p>双击 <code class="inline">声纹工坊-v1.0.0-安装包.exe</code>，选择安装位置。默认装在当前用户目录，不需要管理员权限。</p>
+        <p>双击 <code class="inline">声纹工坊-v1.0.1-安装包.exe</code>，选择安装位置。默认装在当前用户目录，不需要管理员权限。</p>
       </div>
       <div class="step">
         <h4>首次启动等下载</h4>
-        <p>第一次打开会提示需要下载运行环境（约 3.5 GB）。点「是」，等它自己下完解压，中途可以离开。</p>
+        <p>第一次打开会提示需要补运行环境（约 2.3 GB）。点「是」，等它自己下完解压，中途可以离开，断了会续传。</p>
       </div>
       <div class="step">
         <h4>开始使用</h4>
-        <p>下载完成后自动进入主界面。以后再打开就直接启动，不用联网。</p>
+        <p>补齐后自动进入主界面。以后再打开就直接启动，不联网也能用。</p>
       </div>
     </div>
   </section>
 
   <section class="section wrap">
     <div class="section-head">
-      <h2>下载内容说明</h2>
-      <p>为什么要分两次下？</p>
+      <h2>本次更新（v1.0.1）</h2>
     </div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>内容</th><th>大小</th><th>时机</th></tr></thead>
-        <tbody>
-          <tr><td>安装包（程序本体）</td><td>约 214 MB</td><td>手动下载</td></tr>
-          <tr><td>Python 运行时 + 依赖</td><td>约 2.3 GB</td><td>首次运行自动下载</td></tr>
-          <tr><td>F5-TTS 语音模型</td><td>约 1.4 GB</td><td>首次运行自动下载</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="note" style="margin-top:16px">
-      <strong>网络不好怎么办：</strong>安装包和资源都放在国内可访问的地址。如果自动下载失败，
-      可以在程序的 <code class="inline">launcher\endpoints.json</code> 里改成自己的镜像地址，
-      或者手动下载后解压到 <code class="inline">resources\runtime</code> 与 <code class="inline">resources\models</code>。
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>启动更稳</h3>
+        <p>安装包内程序文件已同步到最新主干，设置页版本号更新为 v1.0.1，老版本可以直接覆盖安装，配置和音色库保留。</p>
+      </div>
+      <div class="card">
+        <h3>依赖自检增强</h3>
+        <p>引擎启动失败时会区分「缺包」「内存不足」「端口占用」几类情况，并给出对应的中文处理建议，不再只丢一段堆栈。</p>
+      </div>
     </div>
   </section>
 
@@ -120,8 +171,8 @@
     </div>
     <div class="grid grid-2">
       <div class="card">
-        <h3>首次下载卡住不动</h3>
-        <p>国内访问 GitHub 偶尔会慢。已经做了断点续传，关掉再开会接着下；如果一直失败，可以按上面说的手动放文件。</p>
+        <h3>下载中途断了</h3>
+        <p>浏览器和程序都支持断点续传，重新点一次会接着下，不用从头来。</p>
       </div>
       <div class="card">
         <h3>提示缺少 VCRUNTIME140.dll</h3>
