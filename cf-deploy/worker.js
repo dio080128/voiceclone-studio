@@ -18,6 +18,10 @@ const MS = "https://modelscope.cn/models/dio0801/voiceclone-studio/resolve/maste
 // 文件名 → [首选上游, 备用上游]
 // 首选走魔搭（国内 CDN，实测约为 GitHub 的 3 倍），失败再回 GitHub Release。
 const ASSETS = new Map([
+  ["voiceclone-studio-v1.0.2-setup.exe", [
+    `${MS}/voiceclone-studio-v1.0.2-setup.exe`,
+    `${BASE}/v1.0.2/voiceclone-studio-v1.0.2-setup.exe`,
+  ]],
   ["voiceclone-studio-v1.0.1-setup.exe", [
     `${MS}/voiceclone-studio-v1.0.1-setup.exe`,
     `${BASE}/v1.0.1/voiceclone-studio-v1.0.1-setup.exe`,

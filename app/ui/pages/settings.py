@@ -19,7 +19,7 @@ from .. import theme
 from ..dialogs import InstallDialog
 from ..widgets import Card, HLine, chip, muted, title
 
-APP_VERSION = "1.0.1"
+APP_VERSION = "1.0.2"
 
 
 class SettingsPage(QWidget):

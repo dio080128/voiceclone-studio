@@ -64,8 +64,8 @@ def sha256_of(path: Path) -> str:
 def build_tasks(cfg: dict) -> list[dict]:
     """把配置整理成任务列表。
 
-    runtime 可能由多个分卷组成（GitHub Release 单文件上限 2 GB），
-    每个分卷解压到同一个 resources 目录，压缩包内路径自带 resources/ 前缀。
+    压缩包内路径自带 ``resources/`` 前缀，所以解压目标是 ROOT（安装根目录），
+    而不是 RES，否则会解到 resources/resources/... 里。
     """
     tasks: list[dict] = []
 
@@ -79,7 +79,7 @@ def build_tasks(cfg: dict) -> list[dict]:
             "key": "runtime",
             "name": "Python 运行时",
             "probe": RES / "runtime" / "python.exe",
-            "dest": RES,
+            "dest": ROOT,
             "parts": parts,
             "hint": rt.get("size_hint") or "约 2.3 GB",
         })
@@ -90,7 +90,7 @@ def build_tasks(cfg: dict) -> list[dict]:
             "key": "models",
             "name": "语音模型 F5-TTS",
             "probe": RES / "models" / "models--SWivid--F5-TTS",
-            "dest": RES,
+            "dest": ROOT,
             "parts": [{"url": md["url"], "sha256": md.get("sha256", ""), "label": "模型"}],
             "hint": md.get("size_hint") or "约 1.3 GB",
         })
@@ -98,10 +98,59 @@ def build_tasks(cfg: dict) -> list[dict]:
     return tasks
 
 
+def marker_of(task: dict) -> Path:
+    return RES / f".ready_{task['key']}"
+
+
+def task_ready(task: dict) -> bool:
+    """解压完整才算就绪：优先看标记文件，兼容手动解压的老用户。"""
+    return marker_of(task).exists() or task["probe"].exists()
+
+
+def clean_legacy_garbage() -> None:
+    """旧版本 bug 会把文件解到 resources/resources 下，这里清掉，避免白占几个 G。"""
+    junk = RES / "resources"
+    if not junk.is_dir():
+        return
+    for sub in ("runtime", "models"):
+        target = junk / sub
+        if target.is_dir():
+            try:
+                import shutil
+                shutil.rmtree(target, ignore_errors=True)
+            except Exception:
+                pass
+    try:
+        if not any(junk.iterdir()):
+            junk.rmdir()
+    except Exception:
+        pass
+
+
+def _fatal(message: str) -> None:
+    """没有控制台，错误必须弹窗，不能静默退出。"""
+    try:
+        import tkinter as tk
+        from tkinter import messagebox as mb
+        r = tk.Tk()
+        r.withdraw()
+        mb.showerror(f"{APP_NAME} · 启动失败", message)
+        r.destroy()
+    except Exception:
+        pass
+
+
 def launch_main() -> int:
     python = RES / "runtime" / "python.exe"
     script = RES / "app" / "main.py"
     if not python.exists() or not script.exists():
+        missing = []
+        if not python.exists():
+            missing.append(str(python))
+        if not script.exists():
+            missing.append(str(script))
+        _fatal("运行环境不完整，缺少：\n" + "\n".join(missing) +
+               "\n\n请删掉安装目录重新安装，或重新运行本程序让它自动补齐。")
         return 2
     env = os.environ.copy()
     env["VCS_HOME"] = str(RES / "data")
@@ -202,7 +251,9 @@ def run_gui() -> int:
     if not tasks:
         return launch_main()
 
-    pending = [t for t in tasks if not t["probe"].exists()]
+    clean_legacy_garbage()
+
+    pending = [t for t in tasks if not task_ready(t)]
     if not pending:
         return launch_main()
 
@@ -282,6 +333,12 @@ def run_gui() -> int:
                         lambda: (bar.configure(value=i * 100.0 / max(tot, 1)),
                                  detail.config(text=f"{i} / {tot} 个文件"))))
                     zip_path.unlink(missing_ok=True)
+
+                # 整组解压完才写标记，避免半截就判定"已就绪"
+                try:
+                    marker_of(task).write_text("ok", encoding="utf-8")
+                except Exception:
+                    pass
 
             ui(lambda: (bar.configure(value=100),
                         stage.config(text="全部就绪，正在启动..."),
