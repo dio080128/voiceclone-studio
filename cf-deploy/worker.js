@@ -13,21 +13,23 @@
 
 const REPO = "dio080128/voiceclone-studio";
 const BASE = `https://github.com/${REPO}/releases/download`;
+const MS = "https://modelscope.cn/models/dio0801/voiceclone-studio/resolve/master";
 
-// 文件名 → 上游完整地址（用 ASCII 名，中文名放 Content-Disposition，避免 URL 编码踩坑）
+// 文件名 → [首选上游, 备用上游]
+// 首选走魔搭（国内 CDN，实测约为 GitHub 的 3 倍），失败再回 GitHub Release。
 const ASSETS = new Map([
-  // 当前版本安装包
-  ["voiceclone-studio-v1.0.1-setup.exe", `${BASE}/v1.0.1/voiceclone-studio-v1.0.1-setup.exe`],
-  // 历史版本（老链接不失效）
-  ["-v1.0.0-.exe", `${BASE}/v1.0.0/-v1.0.0-.exe`],
-  ["声纹工坊-v1.0.0-安装包.exe", `${BASE}/v1.0.0/-v1.0.0-.exe`],
-  // 运行时分卷与模型：v1.0.1 未改动，继续指向 v1.0.0
-  ["runtime-part1.zip", `${BASE}/v1.0.0/runtime-part1.zip`],
-  ["runtime-part2.zip", `${BASE}/v1.0.0/runtime-part2.zip`],
-  ["runtime-part3.zip", `${BASE}/v1.0.0/runtime-part3.zip`],
-  ["runtime-part4.zip", `${BASE}/v1.0.0/runtime-part4.zip`],
-  ["runtime-part5.zip", `${BASE}/v1.0.0/runtime-part5.zip`],
-  ["models.zip", `${BASE}/v1.0.0/models.zip`],
+  ["voiceclone-studio-v1.0.1-setup.exe", [
+    `${MS}/voiceclone-studio-v1.0.1-setup.exe`,
+    `${BASE}/v1.0.1/voiceclone-studio-v1.0.1-setup.exe`,
+  ]],
+  ["-v1.0.0-.exe", [`${BASE}/v1.0.0/-v1.0.0-.exe`]],
+  ["声纹工坊-v1.0.0-安装包.exe", [`${BASE}/v1.0.0/-v1.0.0-.exe`]],
+  ["runtime-part1.zip", [`${MS}/runtime-part1.zip`, `${BASE}/v1.0.0/runtime-part1.zip`]],
+  ["runtime-part2.zip", [`${MS}/runtime-part2.zip`, `${BASE}/v1.0.0/runtime-part2.zip`]],
+  ["runtime-part3.zip", [`${MS}/runtime-part3.zip`, `${BASE}/v1.0.0/runtime-part3.zip`]],
+  ["runtime-part4.zip", [`${MS}/runtime-part4.zip`, `${BASE}/v1.0.0/runtime-part4.zip`]],
+  ["runtime-part5.zip", [`${MS}/runtime-part5.zip`, `${BASE}/v1.0.0/runtime-part5.zip`]],
+  ["models.zip", [`${MS}/models.zip`, `${BASE}/v1.0.0/models.zip`]],
 ]);
 
 // 用户下载时看到的名字
@@ -68,8 +70,8 @@ async function handleDownload(request, url, stripDlPrefix, ctx) {
   if (stripDlPrefix) name = name.replace(/^\/dl\//, "/");
   name = name.replace(/^\//, "");
 
-  const upstreamUrl = ASSETS.get(name);
-  if (!upstreamUrl) {
+  const upstreams = ASSETS.get(name);
+  if (!upstreams) {
     return new Response("Not Found", {
       status: 404,
       headers: { "content-type": "text/plain; charset=utf-8" },
@@ -88,25 +90,32 @@ async function handleDownload(request, url, stripDlPrefix, ctx) {
     return new Response(cached.body, { status: cached.status, headers: h });
   }
 
-  const target = upstreamUrl;
   const range = request.headers.get("range");
 
-  let upstream;
-  try {
-    upstream = await fetch(target, {
-      method: request.method,
-      headers: {
-        "User-Agent": "VoiceCloneStudio-Downloader/1.1",
-        ...(range ? { Range: range } : {}),
-      },
-      redirect: "follow",
-    });
-  } catch (e) {
-    return new Response(`上游请求失败: ${e.message}`, { status: 502 });
+  let upstream = null;
+  let lastError = "";
+  for (const target of upstreams) {
+    try {
+      const r = await fetch(target, {
+        method: request.method,
+        headers: {
+          "User-Agent": "VoiceCloneStudio-Downloader/1.2",
+          ...(range ? { Range: range } : {}),
+        },
+        redirect: "follow",
+      });
+      if (r.ok || r.status === 206) {
+        upstream = r;
+        break;
+      }
+      lastError = `上游返回 ${r.status}`;
+    } catch (e) {
+      lastError = `上游请求失败: ${e.message}`;
+    }
   }
 
-  if (!upstream.ok && upstream.status !== 206) {
-    return new Response(`上游返回 ${upstream.status}`, { status: upstream.status });
+  if (!upstream) {
+    return new Response(lastError || "上游全部不可用", { status: 502 });
   }
 
   const headers = new Headers();
