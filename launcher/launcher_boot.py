@@ -203,32 +203,50 @@ def download(url: str, dest: Path, on_progress) -> None:
                 on_progress(got, total)
 
 
+def _norm_name(name: str) -> str:
+    """统一压缩包内的路径。
+
+    历史分卷打包时前缀不一致，有的打到一半多套了一层：
+        resources/runtime/...                  ← part1/2
+        声纹工坊-v1.0.0/resources/runtime/...   ← part3/4/5
+    统一从 resources/ 开始，保证解压后落在安装根目录的正确位置。
+    """
+    idx = name.find("resources/")
+    if idx > 0:
+        return name[idx:]
+    return name
+
+
 def unzip(src: Path, dest: Path, on_progress) -> None:
     dest.mkdir(parents=True, exist_ok=True)
-    # 优先用系统自带 tar（bsdtar），对中文文件名比 zipfile 稳
-    if os.name == "nt":
-        try:
-            subprocess.run(
-                ["tar", "-xf", str(src), "-C", str(dest)],
-                check=True, capture_output=True, creationflags=0x08000000,
-            )
-            on_progress(1, 1)
-            return
-        except Exception:
-            pass
 
     with zipfile.ZipFile(src) as zf:
         infos = zf.infolist()
+        # 前缀规范时优先用系统自带 tar（bsdtar），对中文文件名比 zipfile 稳
+        need_norm = any(i.filename.find("resources/") > 0 for i in infos)
+        if not need_norm and os.name == "nt":
+            try:
+                subprocess.run(
+                    ["tar", "-xf", str(src), "-C", str(dest)],
+                    check=True, capture_output=True, creationflags=0x08000000,
+                )
+                on_progress(1, 1)
+                return
+            except Exception:
+                pass
+
         total = len(infos)
         for i, info in enumerate(infos):
-            name = info.filename
+            name = _norm_name(info.filename)
+            if not name:
+                continue
             if not (info.flag_bits & 0x800):
                 try:
                     name = name.encode("cp437").decode("gbk")
                 except (UnicodeEncodeError, UnicodeDecodeError):
                     pass
             target = dest / name
-            if info.is_dir():
+            if info.is_dir() or name.endswith("/"):
                 target.mkdir(parents=True, exist_ok=True)
             else:
                 target.parent.mkdir(parents=True, exist_ok=True)

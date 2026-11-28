@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>下载 · 声纹工坊 v1.0.2</title>
-<meta name="description" content="直接下载声纹工坊 v1.0.2 安装包（116 MB），国内直连、支持断点续传。运行环境与语音模型首次启动自动下载。">
-<meta property="og:title" content="下载 · 声纹工坊 v1.0.2">
+<title>下载 · 声纹工坊 v1.0.3</title>
+<meta name="description" content="直接下载声纹工坊 v1.0.3 安装包（116 MB），国内直连、支持断点续传。运行环境与语音模型首次启动自动下载。">
+<meta property="og:title" content="下载 · 声纹工坊 v1.0.3">
 <meta property="og:description" content="安装包 116 MB，国内直连下载，首次运行自动补运行环境。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://mctuesday.top/download">
@@ -38,14 +38,14 @@
 <main>
 
   <section class="hero center wrap">
-    <div class="eyebrow">当前版本 v1.0.2</div>
+    <div class="eyebrow">当前版本 v1.0.3</div>
     <h1>下载<br><em>声纹工坊</em></h1>
     <p class="lede">
       点下面的按钮直接开始下载，不跳转、不需要登录。
       安装包 116 MB，运行环境和语音模型在第一次打开时自动补齐。
     </p>
     <div class="actions">
-      <a href="https://modelscope.cn/models/dio0801/voiceclone-studio/resolve/master/voiceclone-studio-v1.0.2-setup.exe"
+      <a href="https://modelscope.cn/models/dio0801/voiceclone-studio/resolve/master/voiceclone-studio-v1.0.3-setup.exe"
          class="btn btn-primary" download>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
         直接下载 116 MB
@@ -53,7 +53,7 @@
       <a href="https://github.com/dio080128/voiceclone-studio/releases/latest" class="btn btn-ghost" target="_blank" rel="noopener">备用线路（GitHub）</a>
     </div>
     <p class="muted" style="margin-top:18px">Windows 10 / 11 · 64 位 · 免费 · 无需注册</p>
-    <p class="muted" style="margin-top:6px">下载后文件名是 <code class="inline">voiceclone-studio-v1.0.2-setup.exe</code>，双击即可安装。</p>
+    <p class="muted" style="margin-top:6px">下载后文件名是 <code class="inline">voiceclone-studio-v1.0.3-setup.exe</code>，双击即可安装。</p>
   </section>
 
   <section class="section wrap">
@@ -66,16 +66,16 @@
         <thead><tr><th>文件</th><th>大小</th><th>SHA-256</th></tr></thead>
         <tbody>
           <tr>
-            <td><code class="inline">声纹工坊-v1.0.2-安装包.exe</code></td>
+            <td><code class="inline">声纹工坊-v1.0.3-安装包.exe</code></td>
             <td>116.6 MB</td>
-            <td><code class="inline" id="sha1">09a4bd64dd40e3d540c5cdd50a12c4b1a04e430a97a6adb05ac15dccbd5810b1</code></td>
+            <td><code class="inline" id="sha1">e7b8f5ffaff982f293733abf4382563730f07fe04815e0b1e2cca121278a69a5</code></td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="note" style="margin-top:16px">
       <strong>怎么校验：</strong>在文件所在目录按住 Shift 右键「在此处打开 PowerShell」，执行
-      <code class="inline">Get-FileHash .\声纹工坊-v1.0.2-安装包.exe -Algorithm SHA256</code>，
+      <code class="inline">Get-FileHash .\声纹工坊-v1.0.3-安装包.exe -Algorithm SHA256</code>，
       比对上面的字符串即可。
     </div>
   </section>
@@ -119,7 +119,7 @@
     <div class="steps">
       <div class="step">
         <h4>运行安装包</h4>
-        <p>双击 <code class="inline">声纹工坊-v1.0.2-安装包.exe</code>，选择安装位置。默认装在当前用户目录，不需要管理员权限。</p>
+        <p>双击 <code class="inline">声纹工坊-v1.0.3-安装包.exe</code>，选择安装位置。默认装在当前用户目录，不需要管理员权限。</p>
       </div>
       <div class="step">
         <h4>首次启动等下载</h4>
@@ -134,10 +134,14 @@
 
   <section class="section wrap">
     <div class="section-head">
-      <h2>本次更新（v1.0.2）</h2>
-      <p>这一版主要修首次安装的几个毛病，建议之前装过 v1.0.0 / v1.0.1 的都更新。</p>
+      <h2>本次更新（v1.0.3）</h2>
+      <p>修首次安装的几个硬伤，装过 v1.0.0 ~ v1.0.2 的都建议更新。</p>
     </div>
     <div class="grid grid-2">
+      <div class="card">
+        <h3>修好了「启动报 No module named PySide6」</h3>
+        <p>历史分卷打包时前缀不一致：part1/2 是 <code class="inline">resources/runtime/…</code>，part3/4/5 多套了一层目录。结果界面库 PySide6 被解到了错误位置。现在解压时统一按 <code class="inline">resources/</code> 归位，新旧分卷都兼容。</p>
+      </div>
       <div class="card">
         <h3>修好了「下完就没了」</h3>
         <p>旧版启动器把分卷解压到了 <code class="inline">resources\resources\</code> 这个错误位置，导致程序找不到运行环境：下载完窗口一关就没了，下次打开又重新下一遍。现在解压到正确位置，并写入就绪标记。</p>
